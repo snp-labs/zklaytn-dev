@@ -20,30 +20,36 @@ rc[0] = keccak256("mimc7_seed")
 for i = 1 to i <= 91
   rc[i] = keccak256(rc[i - 1])
 
-// type(inputs) == byte[][]
-function MiMC7(inputs)
-  
+
+// Receives a arbitrary inputs and calculate the MiMC7 hash function.
+// message & key mapping As follows.
+// message : before mimc7round result(in first time, that is first input data)
+// key     : next input data
+function Mimc7(inputs)
+
   if len(inputs) <= 1 then
     return mimc7round(inputs[0], inputs[0])
-  
+
   else
     let output = input[0]
-    
+
     for i = 1 to i < len(inputs) do
-      output = mimc7round(output, input[i])
+      output = Mimc7round(output, input[i])
     return output
-    
+
     endfor
   endif
 
-// type(m) == type(key) == byte[]
-function mimc7round(m, key)
+// Receives a message and a key pair and calculate the MiMC7 hash function.
+function Mimc7round(m, key)
+
   let c = (m + key)^7 mod ORDER // round 1
+
   for i = 2 to i < 92 do    // round 2 ~ 91
     c = (c + key + rc[i])^7 mod ORDER
   endfor
-  let output = (c + key + m + key) mod ORDER
-  return output
+
+  return (c + key + m + key) mod ORDER
 ```
 ## Poseidon
 Poseidon is mapped to Opcode 0x14.  
@@ -76,61 +82,6 @@ your favorite package manager.
 Once the dependencies are installed, run
 
     make all (or make {kcn, kpn, ken, kbn, kscn, kspn, ksen, kgen, homi, abigen})
-
-## How to use shell script(klaytn/klay)
-
-How to use script(klaytn/klay)
-```
-Usage:
-    klay <command> <value>
-The commands are:
-       setup value      Same as '$ cp build/bin/k*n corecell/*n/bin/k*n.value' (value is program version. ex: 1.0.2)
-       init value       Delete all nodes & init nodes(value is program version)
-       start            Start kcn,kpn,ken(CCN & EN)
-       status           Show CCN, EN status
-       stop             Stop all network
-       attach value     Attach to value(value:cn,pn,en)
-       log value        Show value's log(value:cn,pn,en)
-       remvdata         remove chain data
-```
-
-## Run Local network 
-
-
-```
-cd klaytn
-make all
-echo "export PATH=\$PATH:`pwd`" >> ~/.profile
-source ~/.profile
-make all
-klay setup 1.0.0
-klay init 1.0.0
-klay start
-```
-## Test with Klaytn IDE
-1. go to https://ide.klaytn.com/
-2. click third button(Deploy & run transactions)
-
-![image](https://user-images.githubusercontent.com/54879931/167826231-f7ac9298-2a39-4153-bef0-b5cb0f51b9c9.png)
-
-3. set the environment to Web3 Provider & click OK button
-
-<img src="https://user-images.githubusercontent.com/54879931/167827526-a3988313-8d5d-4d17-b6d8-3c1ef275a760.png" width="300" height="300"/>
-
-## Test with truffle
-
-```
-cd truffletest
-truffle deploy --network klaytn --reset
-truffle --network klaytn console
-```
-In truffle console(call hashfunction and show logs)
-```
-let pre = await Precompiled.deployed()
-pre.callmimc(["0x0000000000000000000000000000000000000000000000000000000000000000"])
-pre.callposeidon(["0x0000000000000000000000000000000000000000000000000000000000000001"])
-await pre.getPastEvents("showbytes32",{ fromBlock:0, toBlock:'latest'})
-```
 
 ## How to Use PreCompiled Contract MiMC7 in Solidity
 The input data must padded the remaining left side of 32bytes to "0". (ex 0x01 -> 0x0000000000000000000000000000000000000000000000000000000000000001)  
