@@ -125,24 +125,34 @@ const (
 	SelfDestructComputationCost   = 0
 
 	// Computation cost for precompiled contracts
-	EcrecoverComputationCost            = 113150
-	Sha256PerWordComputationCost        = 100
-	Sha256BaseComputationCost           = 1000
-	Ripemd160PerWordComputationCost     = 10
-	Ripemd160BaseComputationCost        = 100
-	IdentityPerWordComputationCost      = 0
-	IdentityBaseComputationCost         = 0
-	BigModExpPerGasComputationCost      = 10
-	BigModExpBaseComputationCost        = 100
-	Bn256AddComputationCost             = 8000
-	Bn256ScalarMulComputationCost       = 100000
-	Bn256ParingBaseComputationCost      = 2000000
-	Bn256ParingPerPointComputationCost  = 1000000
-	VMLogPerByteComputationCost         = 0
-	VMLogBaseComputationCost            = 10
-	FeePayerComputationCost             = 10
-	ValidateSenderPerSigComputationCost = 180000
-	ValidateSenderBaseComputationCost   = 10000
+	EcrecoverComputationCost              = 113150
+	Sha256PerWordComputationCost          = 100
+	Sha256BaseComputationCost             = 1000
+	Ripemd160PerWordComputationCost       = 10
+	Ripemd160BaseComputationCost          = 100
+	IdentityPerWordComputationCost        = 0
+	IdentityBaseComputationCost           = 0
+	BigModExpPerGasComputationCost        = 10
+	BigModExpBaseComputationCost          = 100
+	Bn256AddComputationCost               = 8000
+	Bn256ScalarMulComputationCost         = 100000
+	Bn256ParingBaseComputationCost        = 2000000
+	Bn256ParingPerPointComputationCost    = 1000000
+	VMLogPerByteComputationCost           = 0
+	VMLogBaseComputationCost              = 10
+	FeePayerComputationCost               = 10
+	ValidateSenderPerSigComputationCost   = 180000
+	ValidateSenderBaseComputationCost     = 10000
+	Bls12381G1AddComputationCost          = 600
+	Bls12381G1MulComputationCost          = 12000
+	Bls12381G2AddComputationCost          = 4500
+	Bls12381G2MulComputationCost          = 55000
+	Bls12381PairingBaseComputationCost    = 115000
+	Bls12381PairingPerPairComputationCost = 23000
+	Bls12381MapG1ComputationCost          = 5500
+	Bls12381MapG2ComputationCost          = 110000
+	Mimc7PerWordComputationCost           = 150000
+	PoseidonPerWordComputationCost        = 150000
 
 	// computation costs for opcode added at istanbulCompatible Protocol Upgrade
 	ChainIDComputationCost      = 120
