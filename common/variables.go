@@ -16,4 +16,4 @@
 
 package common
 
-var MaxRequestContentLength = 1024 * 512
+var MaxRequestContentLength = 1024 * 512 * 1024
